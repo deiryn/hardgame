@@ -51,7 +51,7 @@ async def changeBanner():
         await guild.edit(reason="6:00", banner=dayIcon)
     elif datetime.now().hour >= 12 and datetime.now().hour < 18:
         await guild.edit(reason="12:00", banner=dayIcon)
-    elif datetime.now().hour >= 18 and datetime.now().hour < 0:
+    elif datetime.now().hour >= 18:
         await guild.edit(reason="18:00", banner=nightIcon)
     elif datetime.now().hour >= 0 and datetime.now().hour < 6:
         await guild.edit(reason="00:00", banner=nightIcon)
