@@ -23,7 +23,7 @@ async def on_ready():
     fileList = []
     for file in listdir('images'):
         with open(f'images/{file}', 'rb') as image:
-            fileList.append(image)
+            fileList.append(image.read())
     try:
         synced = await bot.tree.sync()
         print(f"Synced {len(synced)} commands")
