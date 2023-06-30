@@ -31,6 +31,7 @@ async def on_ready():
     except Exception as e:
         print(e)
     changeBanner.start()
+    print("[\x1b[38;5;141mchangebanner\x1b[m] initialized")
     print('------')
     print('Logged in as:')
     print(bot.user.name)
@@ -57,55 +58,75 @@ sleep 10
 @tasks.loop(minutes=1)
 async def changeBanner():
     global dayStage
-    print("changeBanner")
     guild = bot.get_guild(628323336790736896)
     if dayStage != 0 and datetime.now().hour >= 6 and datetime.now().hour < 7:
         dice = randint(1, 4)
         dayStage = 0
         if dice != 4:
             await guild.edit(reason="6:00 normal", banner=fileList[8])
+            print(f"[\x1b[38;5;141mchangebanner\x1b[m] \x1b[38;5;81m{datetime.now().hour}:{datetime.now().minute}\x1b[m | rolled {dice}")
         else:
             await guild.edit(reason="6:00 secret", banner=fileList[0])
+            print(f"[\x1b[38;5;141mchangebanner\x1b[m] \x1b[38;5;81m{datetime.now().hour}:{datetime.now().minute}\x1b[m | \x1b[48;5;196mrolled {dice}\x1b[m")
+    
     elif dayStage != 1 and datetime.now().hour >= 7 and datetime.now().hour < 12:
         dayStage = 1
         await guild.edit(reason="7:00", banner=fileList[7])
+        print(f"[\x1b[38;5;141mchangebanner\x1b[m] \x1b[38;5;81m{datetime.now().hour}:{datetime.now().minute}\x1b[m")
+   
     elif dayStage != 2 and datetime.now().hour >= 12 and datetime.now().hour < 15:
         dice = randint(1, 3)
         dayStage = 2
         match dice:
             case 1:
                 await guild.edit(reason="12:00 1", banner=fileList[1])
+                print(f"[\x1b[38;5;141mchangebanner\x1b[m] \x1b[38;5;81m{datetime.now().hour}:{datetime.now().minute}\x1b[m | rolled {dice}")
             case 2:
                 await guild.edit(reason="12:00 2", banner=fileList[4])
+                print(f"[\x1b[38;5;141mchangebanner\x1b[m] \x1b[38;5;81m{datetime.now().hour}:{datetime.now().minute}\x1b[m | rolled {dice}")
             case 3:
                 await guild.edit(reason="12:00 3", banner=fileList[3])
+                print(f"[\x1b[38;5;141mchangebanner\x1b[m] \x1b[38;5;81m{datetime.now().hour}:{datetime.now().minute}\x1b[m | rolled {dice}")
+    
     elif dayStage != 3 and datetime.now().hour >= 15 and datetime.now().hour < 16:
         dayStage = 3
         await guild.edit(reason="15:00", banner=fileList[8])
+        print(f"[\x1b[38;5;141mchangebanner\x1b[m] \x1b[38;5;81m{datetime.now().hour}:{datetime.now().minute}\x1b[m")
+    
     elif dayStage != 4 and datetime.now().hour >= 16 and datetime.now().hour < 18:
         dice = randint(1, 3)
         dayStage = 4
         match dice:
             case 1:
                 await guild.edit(reason="16:00 1", banner=fileList[1])
+                print(f"[\x1b[38;5;141mchangebanner\x1b[m] \x1b[38;5;81m{datetime.now().hour}:{datetime.now().minute}\x1b[m | rolled {dice}")
             case 2:
                 await guild.edit(reason="16:00 2", banner=fileList[4])
+                print(f"[\x1b[38;5;141mchangebanner\x1b[m] \x1b[38;5;81m{datetime.now().hour}:{datetime.now().minute}\x1b[m | rolled {dice}")
             case 3:
                 await guild.edit(reason="16:00 3", banner=fileList[3])
+                print(f"[\x1b[38;5;141mchangebanner\x1b[m] \x1b[38;5;81m{datetime.now().hour}:{datetime.now().minute}\x1b[m | rolled {dice}")
+   
     elif dayStage != 5 and datetime.now().hour >= 18 and datetime.now().hour < 22:
         dice = randint(1, 2)
         dayStage = 5
         match dice:
             case 1:
                 await guild.edit(reason="18:00 1", banner=fileList[5])
+                print(f"[\x1b[38;5;141mchangebanner\x1b[m] \x1b[38;5;81m{datetime.now().hour}:{datetime.now().minute}\x1b[m | rolled {dice}")
             case 2:
                 await guild.edit(reason="18:00 2", banner=fileList[6])
+                print(f"[\x1b[38;5;141mchangebanner\x1b[m] \x1b[38;5;81m{datetime.now().hour}:{datetime.now().minute}\x1b[m | rolled {dice}")
+    
     elif dayStage != 6 and datetime.now().hour >= 22:
         dayStage = 6
         await guild.edit(reason="22:00", banner=fileList[9])
+        print(f"[\x1b[38;5;141mchangebanner\x1b[m] \x1b[38;5;81m{datetime.now().hour}:{datetime.now().minute}\x1b[m")
+    
     elif dayStage != 7 and datetime.now().hour >= 2 and datetime.now().hour < 6:
         dayStage = 7
         await guild.edit(reason="2:00", banner=fileList[10])
+        print(f"[\x1b[38;5;141mchangebanner\x1b[m] \x1b[38;5;81m{datetime.now().hour}:{datetime.now().minute}\x1b[m")
 
 
 @bot.tree.command(name="forcebanner")
@@ -120,8 +141,7 @@ async def changeBanner():
     discord.app_commands.Choice(name="morning", value=7),
     discord.app_commands.Choice(name="morningbez", value=8),
     discord.app_commands.Choice(name="night", value=9),
-    discord.app_commands.Choice(name="sleep", value=10),
-
+    discord.app_commands.Choice(name="sleep", value=10)
 ])
 async def forceChange(interaction: discord.Interaction, banner: discord.app_commands.Choice[int]):
     guild = bot.get_guild(628323336790736896)
@@ -148,6 +168,7 @@ async def forceChange(interaction: discord.Interaction, banner: discord.app_comm
             await guild.edit(reason=f"forceChange by {interaction.user.name} to {banner.name}", banner=fileList[banner.value])
         case 10:
             await guild.edit(reason=f"forceChange by {interaction.user.name} to {banner.name}", banner=fileList[banner.value])
+    print(f"[\x1b[38;5;141mchangebanner\x1b[m] \x1b[48;5;9mforceChange to {banner.name} by {interaction.user.name}")
     await interaction.response.defer(ephemeral=True)
     
 bot.run(config["TOKEN"])
