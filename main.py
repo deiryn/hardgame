@@ -14,15 +14,16 @@ if platform == "win32":
 
 bot = commands.Bot(command_prefix="$", help_command=None, intents=discord.Intents.all())
 
-# file assignment | TODO: OPTIMIZE
-fileList = []
-for file in listdir('images'):
-    with open(f'images/{file}', 'rb') as image:
-        fileList.append(image)
-#
+
 
 @bot.event
 async def on_ready():
+    # file assignment | TODO: OPTIMIZE
+    global fileList
+    fileList = []
+    for file in listdir('images'):
+        with open(f'images/{file}', 'rb') as image:
+            fileList.append(image)
     try:
         synced = await bot.tree.sync()
         print(f"Synced {len(synced)} commands")
