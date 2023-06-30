@@ -55,6 +55,7 @@ sleep 10
 
 @tasks.loop(minutes=1)
 async def changeBanner():
+    global dayStage
     print("changeBanner")
     guild = bot.get_guild(628323336790736896)
     if dayStage != 0 and datetime.now().hour >= 6 and datetime.now().hour < 7:
