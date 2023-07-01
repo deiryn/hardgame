@@ -162,7 +162,7 @@ async def changeBanner():
     
     elif dayStage != 3 and datetime.now().hour >= 15 and datetime.now().hour < 16:
         dayStage = 3
-        await guild.edit(reason="15:00", banner=Images.morningbez())
+        await guild.edit(reason="15:00", banner=Images.daybez())
         print(f"\x1b[38;5;93mchangebanner\x1b[m || \x1b[38;5;81m{datetime.now().hour}:{datetime.now().minute}\x1b[m")
     
     elif dayStage != 4 and datetime.now().hour >= 16 and datetime.now().hour < 18:
